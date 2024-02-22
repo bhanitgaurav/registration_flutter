@@ -1,7 +1,7 @@
 name: registration_flutter
-description: "A new Flutter project."
+description: "A registration library in flutter."
 version: 0.0.1
-homepage:
+homepage: "https://github.com/bhanitgaurav/registration_flutter.git"
 
 environment:
   sdk: '>=3.2.0 <4.0.0'

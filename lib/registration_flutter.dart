@@ -1,5 +1,3 @@
-library registration_flutter;
-
 /// A Calculator.
 class Calculator {
   /// Returns [value] plus 1.
