@@ -11,10 +11,10 @@ class DashboardScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(AppKeys.appName),
-        actions: const [LogoutView()],
+        actions: const [LogoutView(DashboardScreen())],
       ),
       body: const Center(
-        child: Text('Dashboard'),
+        child: Text('I am Dashboard'),
       ),
     );
   }

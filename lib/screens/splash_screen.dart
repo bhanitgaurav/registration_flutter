@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:registration_flutter/config/route/my_routes.dart';
 import 'package:registration_flutter/config/route/route_location.dart';
 import 'package:registration_flutter/provider/pref/pref_provider.dart';
-import 'package:registration_flutter/screens/dashboard_screen.dart';
 import 'package:registration_flutter/utils/extensions.dart';
 import 'package:registration_flutter/widgets/app_background.dart';
 import 'package:registration_flutter/widgets/display_white_text.dart';
@@ -13,8 +12,9 @@ class SplashScreen extends ConsumerWidget {
     return runtimeType.toString();
   }
 
-  const SplashScreen({super.key});
+  const SplashScreen(this.dashboardScreen, {super.key});
 
+  final ConsumerWidget dashboardScreen;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final deviceSize = context.deviceSize;
@@ -44,12 +44,12 @@ class SplashScreen extends ConsumerWidget {
     if (loggedIn) {
       Future.delayed(const Duration(seconds: 2)).then((value) {
         context.navigator.pushReplacement(
-            MaterialPageRoute(builder: (builder) => const DashboardScreen()));
+            MaterialPageRoute(builder: (builder) => dashboardScreen));
       });
     } else {
       Future.delayed(const Duration(seconds: 2)).then((value) {
-        context.navigator
-            .pushReplacement(MyRoute.generateRoute(RouteLocation.login));
+        context.navigator.pushReplacement(
+            MyRoute.generateRoute(RouteLocation.login, dashboardScreen));
       });
     }
   }

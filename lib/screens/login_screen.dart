@@ -8,7 +8,9 @@ import 'package:registration_flutter/widgets/app_background.dart';
 import 'package:registration_flutter/widgets/display_white_text.dart';
 
 class LoginScreen extends ConsumerWidget {
-  const LoginScreen({super.key});
+  const LoginScreen(this.screen, {super.key});
+
+  final ConsumerWidget screen;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -41,14 +43,14 @@ class LoginScreen extends ConsumerWidget {
           top: (deviceSize.height * 0.3) - 40,
           left: 0,
           right: 0,
-          child: const SafeArea(
+          child: SafeArea(
             child: SingleChildScrollView(
-              physics: AlwaysScrollableScrollPhysics(),
-              padding: EdgeInsets.all(20.0),
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  LoginView(),
+                  LoginView(screen),
                 ],
               ),
             ),

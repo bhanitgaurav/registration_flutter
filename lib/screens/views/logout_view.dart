@@ -6,8 +6,9 @@ import 'package:registration_flutter/provider/pref/pref_provider.dart';
 import 'package:registration_flutter/utils/extensions.dart';
 
 class LogoutView extends ConsumerStatefulWidget {
-  const LogoutView({super.key});
+  const LogoutView(this.screen, {super.key});
 
+  final ConsumerWidget screen;
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _LogoutViewState();
 }
@@ -23,8 +24,8 @@ class _LogoutViewState extends ConsumerState<LogoutView> {
 
   void logout() {
     ref.read(prefProvider.notifier).logOut().then((value) {
-      context.navigator
-          .pushReplacement(MyRoute.generateRoute(RouteLocation.login));
+      context.navigator.pushReplacement(
+          MyRoute.generateRoute(RouteLocation.login, widget.screen));
     });
   }
 }

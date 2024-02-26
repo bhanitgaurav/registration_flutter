@@ -12,8 +12,9 @@ import 'package:registration_flutter/widgets/display_black_text.dart';
 import 'package:registration_flutter/widgets/display_white_text.dart';
 
 class LoginView extends ConsumerStatefulWidget {
-  const LoginView({super.key});
+  const LoginView(this.screen, {super.key});
 
+  final ConsumerWidget screen;
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _LoginViewState();
 }
@@ -86,8 +87,8 @@ class _LoginViewState extends ConsumerState<LoginView> {
       }
       clearTextFields();
       AppAlerts.displaySnackBar(context, Constants.loggedInSuccessfully);
-      context.navigator
-          .pushReplacement(MyRoute.generateRoute(RouteLocation.dashboard));
+      context.navigator.pushReplacement(
+          MyRoute.generateRoute(RouteLocation.dashboard, widget.screen));
     });
   }
 
@@ -109,7 +110,8 @@ class _LoginViewState extends ConsumerState<LoginView> {
         const Text('Not registered ? '),
         TextButton(
           onPressed: () {
-            context.navigator.push(MyRoute.generateRoute(RouteLocation.signup));
+            context.navigator.push(
+                MyRoute.generateRoute(RouteLocation.signup, widget.screen));
           },
           child: const Padding(
             padding: EdgeInsets.only(top: 8, bottom: 8),

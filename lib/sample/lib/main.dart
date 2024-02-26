@@ -4,7 +4,6 @@ import 'package:registration_flutter/sample/lib/sample_app.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  // EnsureInitialized.ensureInitialization();
   runApp(
     const ProviderScope(
       child: FlutterRiverpodLoginApp(),
