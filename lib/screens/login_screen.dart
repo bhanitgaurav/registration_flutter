@@ -31,11 +31,7 @@ class LoginScreen extends ConsumerWidget {
               children: [
                 InkWell(
                   onTap: () => {Helpers.selectDate(context, ref)},
-                  child: /*DisplayWhiteText(
-                    text: Helpers.dateFormatter(date),
-                    fontWeight: FontWeight.normal,
-                  ),*/
-                      Padding(
+                  child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 40,
                       vertical: 20,
