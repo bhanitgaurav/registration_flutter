@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:registration_flutter/config/my_objects.dart';
 import 'package:registration_flutter/provider/date_provider.dart';
 import 'package:registration_flutter/screens/views/signup_view.dart';
 import 'package:registration_flutter/utils/extensions.dart';
 import 'package:registration_flutter/utils/helpers.dart';
 import 'package:registration_flutter/widgets/app_background.dart';
 import 'package:registration_flutter/widgets/display_white_text.dart';
+import 'package:registration_flutter/widgets/loading_image.dart';
 
 class SignUpScreen extends ConsumerWidget {
   const SignUpScreen({super.key});
@@ -27,9 +29,14 @@ class SignUpScreen extends ConsumerWidget {
               children: [
                 InkWell(
                   onTap: () => {Helpers.selectDate(context, ref)},
-                  child: DisplayWhiteText(
+                  child: /*DisplayWhiteText(
                     text: Helpers.dateFormatter(date),
                     fontWeight: FontWeight.normal,
+                  )*/
+                      Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 20),
+                    child: LoadingImage(url: MyObject.instance.getBrandImage()),
                   ),
                 ),
                 const DisplayWhiteText(text: 'Flutter Signup', size: 40),
