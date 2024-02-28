@@ -23,10 +23,6 @@ class SplashScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final deviceSize = context.deviceSize;
     final loggedIn = ref.watch(prefProvider);
-    final Triple<String, Triple<String, double?, double?>,
-            Triple<String, double?, double?>> splash =
-        MyObject.instance.getSplash();
-
     _watchLoggedIn(loggedIn.loggedIn, context);
 
     return AppBackground(
@@ -35,17 +31,17 @@ class SplashScreen extends ConsumerWidget {
         physics: const AlwaysScrollableScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: splashViews(splash),
+          children: splashViews(),
         ),
       ),
     );
   }
 
-  List<Widget> splashViews(
-      Triple<String, Triple<String, double?, double?>,
-              Triple<String, double?, double?>>
-          splash) {
+  List<Widget> splashViews() {
     final List<Widget> list = [];
+    final Triple<String, Triple<String, double?, double?>,
+            Triple<String, double?, double?>> splash =
+        MyObject.instance.getSplash();
     if (splash.first.isNotEmpty) {
       list.add(
         DisplayWhiteText(text: splash.first, size: 40),

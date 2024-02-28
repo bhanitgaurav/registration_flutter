@@ -10,10 +10,12 @@ class MyObject {
     return _singleton!;
   }
 
-  late var _registrationUrl;
+  late String _registrationUrl;
+
   late Triple<String, Triple<String, double?, double?>,
       Triple<String, double?, double?>> _splash;
-  late var _brandImage;
+  late String _appName;
+  late Pair<String, Triple<String, double?, double?>> _loginTopView;
 
   void setRegistrationUrl(String url) {
     _registrationUrl = url;
@@ -40,11 +42,20 @@ class MyObject {
     return _splash;
   }
 
-  void setBrandImage({required String url}) {
-    _brandImage = url;
+  void setAppName({required String name}) {
+    _appName = name;
   }
 
-  String getBrandImage() {
-    return _brandImage;
+  String getAppName() {
+    return _appName;
+  }
+
+  void setLoginTopView(
+      {String name = '', String image = '', double? height, double? width}) {
+    _loginTopView = Pair(name, Triple(image, height, width));
+  }
+
+  Pair<String, Triple<String, double?, double?>> getLoginTopView() {
+    return _loginTopView;
   }
 }

@@ -26,7 +26,9 @@ class FlutterRiverpodLoginApp extends StatelessWidget {
     const imageUrl =
         'https://res.cloudinary.com/daedgnllx/image/upload/v1600763511/athancare_website_assets/home/logos/Athansys_logo_cvavsr.png';
     final MyObject myObject = MyObject.instance;
-    myObject.setSplash(name: 'Splash');
-    myObject.setBrandImage(url: imageUrl);
+    myObject.setSplash(name: 'AthanCare Plus');
+    myObject.setAppName(name: 'AthanCare');
+    myObject.setLoginTopView(name: 'AthanCare Plus');
+    // myObject.setLoginTopView(image: imageUrl,height: 50,width: 260);
   }
 }

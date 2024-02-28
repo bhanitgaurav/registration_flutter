@@ -36,7 +36,7 @@ class SignUpScreen extends ConsumerWidget {
                       Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 40, vertical: 20),
-                    child: LoadingImage(url: MyObject.instance.getBrandImage()),
+                    child: LoadingImage(url: MyObject.instance.getAppName()),
                   ),
                 ),
                 const DisplayWhiteText(text: 'Flutter Signup', size: 40),
