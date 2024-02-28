@@ -7,9 +7,10 @@ import 'package:registration_flutter/provider/pref/pref_provider.dart';
 import 'package:registration_flutter/utils/app_alerts.dart';
 import 'package:registration_flutter/utils/constants.dart';
 import 'package:registration_flutter/utils/extensions.dart';
-import 'package:registration_flutter/widgets/common_text_field.dart';
+import 'package:registration_flutter/widgets/common_text_form_field.dart';
 import 'package:registration_flutter/widgets/display_black_text.dart';
 import 'package:registration_flutter/widgets/display_white_text.dart';
+import 'package:registration_flutter/widgets/password_text_from_field.dart';
 
 class LoginView extends ConsumerStatefulWidget {
   const LoginView(this.screen, {super.key});
@@ -20,8 +21,10 @@ class LoginView extends ConsumerStatefulWidget {
 }
 
 class _LoginViewState extends ConsumerState<LoginView> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  var _username = '';
+  var _password = '';
+
   var _loading = false;
 
   @override
@@ -31,54 +34,36 @@ class _LoginViewState extends ConsumerState<LoginView> {
 
   @override
   void dispose() {
-    _usernameController.dispose();
-    _passwordController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        CommonTextField(
-          hintText: 'Username',
-          title: 'Username',
-          controller: _usernameController,
-        ),
-        const Gap(10),
-        CommonTextField(
-          hintText: 'Password',
-          title: 'Password',
-          controller: _passwordController,
-        ),
-        const Gap(30),
-        ElevatedButton(
-          onPressed: _loading ? null : _login,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: _loadingSignUp(),
-          ),
-        ),
-        const Gap(10),
-        notRegistered()
-      ],
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: loginViews(),
+      ),
     );
   }
 
   void _login() async {
-    final userName = _usernameController.text.trim();
-    final password = _passwordController.text.trim();
-
-    if (userName.isEmpty || password.isEmpty) {
+    if (!_formKey.currentState!.validate()) {
+      debugPrint('empty');
+      return;
+    }
+    if (_username.isEmpty || _password.isEmpty) {
       AppAlerts.displaySnackBar(context, Constants.usernamePasswordCantEmpty);
       return;
     }
+    _formKey.currentState!.save();
+
     showHideLoading(true);
 
     await ref
         .read(prefProvider.notifier)
-        .verifyLogin(userName, password)
+        .verifyLogin(_username, _password)
         .then((value) {
       showHideLoading(false);
       if (value.isNotEmpty) {
@@ -133,7 +118,71 @@ class _LoginViewState extends ConsumerState<LoginView> {
   }
 
   void clearTextFields() {
-    _usernameController.clear();
-    _passwordController.clear();
+    _formKey.currentState!.reset();
+  }
+
+  loginViews() {
+    final List<Widget> list = [];
+    list.add(
+      CommonTextFormField(
+        label: 'Username',
+        onChanged: (String value) {
+          if (value.isNotEmpty) {}
+        },
+        keyboardType: TextInputType.text,
+        validator: (String? value) {
+          if (value == null ||
+              value.trim().isEmpty ||
+              RegExp(r'^[A-Za-z0-9_.]+$').hasMatch(value)) {
+            return 'Username have only alphabet and digits.';
+          }
+          return null;
+        },
+        onSaved: (String value) {
+          _username = value;
+        },
+      ),
+    );
+    list.add(const Gap(10));
+    list.add(
+      PasswordTextFormField(
+        label: 'Password',
+        keyboardType: TextInputType.visiblePassword,
+        validator: (String? value) {
+          if (value == null ||
+              value.trim().isEmpty ||
+              RegExp(r'^[A-Za-z0-9_.]+$').hasMatch(value)) {
+            return 'Password have only alphabet and digits.';
+          }
+          return null;
+        },
+        onSaved: (String value) {
+          _password = value;
+        },
+      ),
+    );
+    list.add(const Gap(10));
+    list.add(
+      ElevatedButton(
+        onPressed: _loading ? null : _login,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: _loadingSignUp(),
+        ),
+      ),
+    );
+    list.add(const Gap(10));
+    list.add(notRegistered());
+    return list;
+  }
+
+  String? validateUserName(String? value) {
+    if (value == null ||
+        value.isEmpty ||
+        int.tryParse(value) == null ||
+        int.tryParse(value)! <= 0) {
+      return 'Must be valid, positive number.';
+    }
+    return null;
   }
 }
