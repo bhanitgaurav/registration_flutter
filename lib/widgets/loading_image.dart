@@ -17,8 +17,8 @@ class LoadingImage extends StatelessWidget {
     return Image.network(
       url,
       fit: BoxFit.cover,
-      width: height,
-      height: width,
+      width: width,
+      height: height,
       errorBuilder: (c, err, stack) {
         return const Center(child: Text('error'));
       },

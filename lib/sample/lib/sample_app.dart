@@ -13,14 +13,20 @@ class FlutterRiverpodLoginApp extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
-    final MyObject myObject = MyObject.instance;
-    myObject.setSplashName('Splash');
-    myObject.setBrandImage(
-        'https://res.cloudinary.com/daedgnllx/image/upload/v1600763511/athancare_website_assets/home/logos/Athansys_logo_cvavsr.png');
+    initSetup();
     return MaterialApp(
       title: AppKeys.appName,
       theme: AppTheme.light,
       home: const SplashScreen(DashboardScreen()),
     );
+  }
+
+  void initSetup() {
+    const assetUrl = 'assets/images/splash.png';
+    const imageUrl =
+        'https://res.cloudinary.com/daedgnllx/image/upload/v1600763511/athancare_website_assets/home/logos/Athansys_logo_cvavsr.png';
+    final MyObject myObject = MyObject.instance;
+    myObject.setSplash(name: 'Splash');
+    myObject.setBrandImage(url: imageUrl);
   }
 }

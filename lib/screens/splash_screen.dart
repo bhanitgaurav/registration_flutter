@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:registration_flutter/config/my_objects.dart';
 import 'package:registration_flutter/config/route/my_routes.dart';
 import 'package:registration_flutter/config/route/route_location.dart';
+import 'package:registration_flutter/models/pair.dart';
 import 'package:registration_flutter/provider/pref/pref_provider.dart';
 import 'package:registration_flutter/utils/extensions.dart';
 import 'package:registration_flutter/widgets/app_background.dart';
@@ -22,25 +23,52 @@ class SplashScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final deviceSize = context.deviceSize;
     final loggedIn = ref.watch(prefProvider);
-    final String splashName = MyObject.instance.getSplashName();
+    final Triple<String, Triple<String, double?, double?>,
+            Triple<String, double?, double?>> splash =
+        MyObject.instance.getSplash();
 
     _watchLoggedIn(loggedIn.loggedIn, context);
+
     return AppBackground(
       headerHeight: deviceSize.height,
       header: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-              child: LoadingImage(url: MyObject.instance.getBrandImage()),
-            ),
-            DisplayWhiteText(text: splashName, size: 40),
-          ],
+          children: splashViews(splash),
         ),
       ),
     );
+  }
+
+  List<Widget> splashViews(
+      Triple<String, Triple<String, double?, double?>,
+              Triple<String, double?, double?>>
+          splash) {
+    final List<Widget> list = [];
+    if (splash.first.isNotEmpty) {
+      list.add(
+        DisplayWhiteText(text: splash.first, size: 40),
+      );
+    }
+    if (splash.second.first.isNotEmpty) {
+      list.add(Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: Image.asset(
+            splash.second.first,
+            height: splash.second.second,
+            width: splash.second.third,
+          )));
+    } else if (splash.third.first.isNotEmpty) {
+      list.add(Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: LoadingImage(
+            url: splash.third.first,
+            height: splash.third.second,
+            width: splash.third.third,
+          )));
+    }
+    return list;
   }
 
   void _watchLoggedIn(bool? loggedIn, BuildContext context) {

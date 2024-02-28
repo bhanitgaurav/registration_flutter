@@ -1,3 +1,5 @@
+import 'package:registration_flutter/models/pair.dart';
+
 class MyObject {
   static MyObject? _singleton;
 
@@ -9,7 +11,8 @@ class MyObject {
   }
 
   late var _registrationUrl;
-  late var _splashName;
+  late Triple<String, Triple<String, double?, double?>,
+      Triple<String, double?, double?>> _splash;
   late var _brandImage;
 
   void setRegistrationUrl(String url) {
@@ -20,15 +23,24 @@ class MyObject {
     return _registrationUrl;
   }
 
-  void setSplashName(String name) {
-    _splashName = name;
+  void setSplash({
+    required String name,
+    String assetUrl = '',
+    String imageUrl = '',
+    double? height,
+    double? width,
+  }) {
+    final asset = Triple<String, double?, double?>(assetUrl, height, width);
+    final image = Triple<String, double?, double?>(imageUrl, height, width);
+    _splash = Triple(name, asset, image);
   }
 
-  String getSplashName() {
-    return _splashName;
+  Triple<String, Triple<String, double?, double?>,
+      Triple<String, double?, double?>> getSplash() {
+    return _splash;
   }
 
-  void setBrandImage(String url) {
+  void setBrandImage({required String url}) {
     _brandImage = url;
   }
 
