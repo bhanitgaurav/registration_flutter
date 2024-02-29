@@ -4,8 +4,7 @@ import 'package:registration_flutter/config/my_objects.dart';
 import 'package:registration_flutter/screens/views/login_view.dart';
 import 'package:registration_flutter/utils/extensions.dart';
 import 'package:registration_flutter/widgets/app_background.dart';
-import 'package:registration_flutter/widgets/display_white_text.dart';
-import 'package:registration_flutter/widgets/loading_image.dart';
+import 'package:registration_flutter/widgets/registration_top_view.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen(this.screen, {super.key});
@@ -22,9 +21,8 @@ class LoginScreen extends ConsumerWidget {
           headerHeight: deviceSize.height * 0.3,
           header: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: topViews(),
+            child: RegistrationTopView(
+              registrationView: MyObject.instance.getLoginTopView(),
             ),
           ),
         ),
@@ -47,25 +45,5 @@ class LoginScreen extends ConsumerWidget {
         ),
       ],
     ));
-  }
-
-  topViews() {
-    final loginTopView = MyObject.instance.getLoginTopView();
-    final List<Widget> list = [];
-    if (loginTopView.first.isNotEmpty) {
-      list.add(
-        DisplayWhiteText(text: loginTopView.first, size: 40),
-      );
-    } else if (loginTopView.second.first.isNotEmpty) {
-      list.add(Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: LoadingImage(
-          url: loginTopView.second.first,
-          height: loginTopView.second.second,
-          width: loginTopView.second.third,
-        ),
-      ));
-    }
-    return list;
   }
 }

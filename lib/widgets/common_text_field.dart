@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:registration_flutter/utils/extensions.dart';
 
@@ -43,10 +42,6 @@ class CommonTextField extends StatelessWidget {
             suffixIcon: suffixIcon,
           ),
           maxLines: maxLines,
-          inputFormatters: <TextInputFormatter>[
-            FilteringTextInputFormatter.digitsOnly,
-          ],
-          keyboardType: TextInputType.phone,
         ),
       ],
     );

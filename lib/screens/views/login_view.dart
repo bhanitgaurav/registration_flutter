@@ -38,9 +38,9 @@ class _LoginViewState extends ConsumerState<LoginView> {
 
   @override
   void dispose() {
-    super.dispose();
     _userNameController.dispose();
     _passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -76,7 +76,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
         AppAlerts.displaySnackBar(context, value);
         return;
       }
-      clearTextFields();
+      // clearTextFields(); // TODO: causes some Exception.
       AppAlerts.displaySnackBar(context, Constants.loggedInSuccessfully);
       context.navigator.pushReplacement(
           MyRoute.generateRoute(RouteLocation.dashboard, widget.screen));

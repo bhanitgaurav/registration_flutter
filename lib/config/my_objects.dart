@@ -16,9 +16,14 @@ class MyObject {
       Triple<String, double?, double?>> _splash;
   late String _appName;
   String _loginText = 'Login';
+  String _signUpText = 'SignUp';
 
   late Pair<String, Triple<String, double?, double?>> _loginTopView;
+  late Pair<String, Triple<String, double?, double?>> _signUpTopView;
+
   Pair<String, String> _switchToSignUp = Pair('Not registered ? ', 'SignUp');
+  Pair<String, String> _switchToLogin =
+      Pair('Already have an account ? ', 'Login');
 
   Triple<String, String, String> _usernameRegexMessage = Triple('Username',
       r'^[A-Za-z0-9_.]+$', 'Username have only alphabet and digits.');
@@ -37,6 +42,14 @@ class MyObject {
 
   Pair<String, String> get switchToSignUp {
     return _switchToSignUp;
+  }
+
+  void alreadyRegistered(String alreadyRegisteredText, String loginText) {
+    _switchToLogin = Pair(alreadyRegisteredText, loginText);
+  }
+
+  Pair<String, String> get switchToLogin {
+    return _switchToLogin;
   }
 
   void setUsernameRegexMessage(String name, String regex, String message) {
@@ -65,6 +78,11 @@ class MyObject {
 
   get loginText {
     return _loginText;
+  }
+
+  get signUpText {
+    return _signUpText;
+    ;
   }
 
   void setLoginText(String loginText) {
@@ -111,5 +129,14 @@ class MyObject {
 
   Pair<String, Triple<String, double?, double?>> getLoginTopView() {
     return _loginTopView;
+  }
+
+  void setSignTopView(
+      {String name = '', String image = '', double? height, double? width}) {
+    _signUpTopView = Pair(name, Triple(image, height, width));
+  }
+
+  Pair<String, Triple<String, double?, double?>> getSignUpTopView() {
+    return _signUpTopView;
   }
 }

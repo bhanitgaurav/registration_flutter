@@ -29,6 +29,7 @@ class FlutterRiverpodLoginApp extends StatelessWidget {
     myObject.setSplash(name: 'AthanCare Plus');
     myObject.setAppName(name: 'AthanCare');
     myObject.setLoginTopView(name: 'AthanCare Plus');
+    myObject.setSignTopView(name: 'AthanCare Plus');
     // myObject.setLoginTopView(image: imageUrl,height: 50,width: 260);
   }
 }
