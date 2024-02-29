@@ -98,16 +98,16 @@ class _LoginViewState extends ConsumerState<LoginView> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text('Not registered ? '),
+        Text(MyObject.instance.switchToSignUp.first),
         TextButton(
           onPressed: () {
             context.navigator.push(
                 MyRoute.generateRoute(RouteLocation.signup, widget.screen));
           },
-          child: const Padding(
-            padding: EdgeInsets.only(top: 8, bottom: 8),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 8, bottom: 8),
             child: DisplayBlackText(
-              text: 'SignUp',
+              text: MyObject.instance.switchToSignUp.second,
               fontWeight: FontWeight.bold,
               size: 14,
             ),

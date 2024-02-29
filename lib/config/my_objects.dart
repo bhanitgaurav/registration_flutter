@@ -18,6 +18,7 @@ class MyObject {
   String _loginText = 'Login';
 
   late Pair<String, Triple<String, double?, double?>> _loginTopView;
+  Pair<String, String> _switchToSignUp = Pair('Not registered ? ', 'SignUp');
 
   Triple<String, String, String> _usernameRegexMessage = Triple('Username',
       r'^[A-Za-z0-9_.]+$', 'Username have only alphabet and digits.');
@@ -29,6 +30,14 @@ class MyObject {
       'Email',
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
       'Invalid Email.');
+
+  void notRegisterSignUp(String notRegisteredText, signupText) {
+    _switchToSignUp = Pair(notRegisteredText, signupText);
+  }
+
+  Pair<String, String> get switchToSignUp {
+    return _switchToSignUp;
+  }
 
   void setUsernameRegexMessage(String name, String regex, String message) {
     _usernameRegexMessage = Triple(name, regex, message);
