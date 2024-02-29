@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class CommonTextFormField extends StatelessWidget {
   const CommonTextFormField({
     required this.label,
+    required this.controller,
     required this.keyboardType,
     required this.validator,
     required this.onSaved,
@@ -14,6 +15,7 @@ class CommonTextFormField extends StatelessWidget {
   final String label;
   final TextInputType keyboardType;
   final int maxLength;
+  final TextEditingController controller;
 
   final String? Function(String? value) validator;
   final void Function(String value) onSaved;
@@ -22,13 +24,13 @@ class CommonTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       onChanged: onChanged,
       maxLength: maxLength,
       decoration: InputDecoration(
         label: Text(label),
       ),
       keyboardType: keyboardType,
-      initialValue: '',
       validator: (value) {
         return validator(value);
       },

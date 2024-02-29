@@ -15,7 +15,52 @@ class MyObject {
   late Triple<String, Triple<String, double?, double?>,
       Triple<String, double?, double?>> _splash;
   late String _appName;
+  String _loginText = 'Login';
+
   late Pair<String, Triple<String, double?, double?>> _loginTopView;
+
+  Triple<String, String, String> _usernameRegexMessage = Triple('Username',
+      r'^[A-Za-z0-9_.]+$', 'Username have only alphabet and digits.');
+
+  Triple<String, String, String> _passwordRegexMessage = Triple('Password',
+      r'^[A-Za-z0-9_.]+$', 'Password have only alphabet and digits.');
+
+  final Triple<String, String, String> _emailRegexMessage = Triple(
+      'Email',
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+      'Invalid Email.');
+
+  void setUsernameRegexMessage(String name, String regex, String message) {
+    _usernameRegexMessage = Triple(name, regex, message);
+  }
+
+  Triple<String, String, String> get usernameValidation {
+    return _usernameRegexMessage;
+  }
+
+  void setPasswordRegexMessage(String name, String regex, String message) {
+    _passwordRegexMessage = Triple(name, regex, message);
+  }
+
+  Triple<String, String, String> get passwordValidation {
+    return _passwordRegexMessage;
+  }
+
+  // void setEmailRegexMessage(String name, String regex, String message) {
+  //   _passwordRegexMessage = Triple(name, regex, message);
+  // }
+  //
+  // Triple<String, String, String> get emailValidation {
+  //   return _emailRegexMessage;
+  // }
+
+  get loginText {
+    return _loginText;
+  }
+
+  void setLoginText(String loginText) {
+    _loginText = loginText;
+  }
 
   void setRegistrationUrl(String url) {
     _registrationUrl = url;

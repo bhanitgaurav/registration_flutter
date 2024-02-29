@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:registration_flutter/config/my_objects.dart';
 import 'package:registration_flutter/config/route/my_routes.dart';
 import 'package:registration_flutter/config/route/route_location.dart';
 import 'package:registration_flutter/provider/pref/pref_provider.dart';
@@ -22,6 +23,9 @@ class LoginView extends ConsumerStatefulWidget {
 
 class _LoginViewState extends ConsumerState<LoginView> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   var _username = '';
   var _password = '';
 
@@ -35,6 +39,8 @@ class _LoginViewState extends ConsumerState<LoginView> {
   @override
   void dispose() {
     super.dispose();
+    _userNameController.dispose();
+    _passwordController.dispose();
   }
 
   @override
@@ -50,14 +56,14 @@ class _LoginViewState extends ConsumerState<LoginView> {
 
   void _login() async {
     if (!_formKey.currentState!.validate()) {
-      debugPrint('empty');
       return;
     }
+    _formKey.currentState!.save();
+
     if (_username.isEmpty || _password.isEmpty) {
       AppAlerts.displaySnackBar(context, Constants.usernamePasswordCantEmpty);
       return;
     }
-    _formKey.currentState!.save();
 
     showHideLoading(true);
 
@@ -81,8 +87,8 @@ class _LoginViewState extends ConsumerState<LoginView> {
     if (_loading) {
       return const CircularProgressIndicator();
     } else {
-      return const DisplayWhiteText(
-        text: 'Login',
+      return DisplayWhiteText(
+        text: MyObject.instance.loginText,
         fontWeight: FontWeight.w400,
       );
     }
@@ -121,20 +127,45 @@ class _LoginViewState extends ConsumerState<LoginView> {
     _formKey.currentState!.reset();
   }
 
+  void _formReset(
+    GlobalKey<FormState> formKey,
+    TextEditingController controllerChange,
+    TextEditingController controller,
+  ) {
+    String stringValueOne = controllerChange.text;
+    TextPosition textPositionOne = controllerChange.selection.base;
+
+    String stringValueTwo = controller.text;
+    TextPosition textPositionTwo = controller.selection.base;
+
+    formKey.currentState!.reset();
+
+    controllerChange.text = stringValueOne;
+    controllerChange.selection = TextSelection.fromPosition(textPositionOne);
+
+    controller.text = stringValueTwo;
+    controller.selection = TextSelection.fromPosition(textPositionTwo);
+  }
+
   loginViews() {
     final List<Widget> list = [];
+    list.add(const Gap(20));
     list.add(
       CommonTextFormField(
-        label: 'Username',
+        label: MyObject.instance.usernameValidation.first,
+        controller: _userNameController,
         onChanged: (String value) {
-          if (value.isNotEmpty) {}
+          if (value.isNotEmpty) {
+            _formReset(_formKey, _userNameController, _passwordController);
+          }
         },
         keyboardType: TextInputType.text,
         validator: (String? value) {
           if (value == null ||
               value.trim().isEmpty ||
-              RegExp(r'^[A-Za-z0-9_.]+$').hasMatch(value)) {
-            return 'Username have only alphabet and digits.';
+              !RegExp(MyObject.instance.usernameValidation.second)
+                  .hasMatch(value)) {
+            return MyObject.instance.usernameValidation.third;
           }
           return null;
         },
@@ -146,13 +177,20 @@ class _LoginViewState extends ConsumerState<LoginView> {
     list.add(const Gap(10));
     list.add(
       PasswordTextFormField(
-        label: 'Password',
+        label: MyObject.instance.passwordValidation.first,
+        controller: _passwordController,
+        onChanged: (String value) {
+          if (value.isNotEmpty) {
+            _formReset(_formKey, _passwordController, _userNameController);
+          }
+        },
         keyboardType: TextInputType.visiblePassword,
         validator: (String? value) {
           if (value == null ||
               value.trim().isEmpty ||
-              RegExp(r'^[A-Za-z0-9_.]+$').hasMatch(value)) {
-            return 'Password have only alphabet and digits.';
+              !RegExp(MyObject.instance.passwordValidation.second)
+                  .hasMatch(value)) {
+            return MyObject.instance.passwordValidation.third;
           }
           return null;
         },
@@ -174,15 +212,5 @@ class _LoginViewState extends ConsumerState<LoginView> {
     list.add(const Gap(10));
     list.add(notRegistered());
     return list;
-  }
-
-  String? validateUserName(String? value) {
-    if (value == null ||
-        value.isEmpty ||
-        int.tryParse(value) == null ||
-        int.tryParse(value)! <= 0) {
-      return 'Must be valid, positive number.';
-    }
-    return null;
   }
 }
