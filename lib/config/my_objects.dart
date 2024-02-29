@@ -82,11 +82,14 @@ class MyObject {
 
   get signUpText {
     return _signUpText;
-    ;
   }
 
   void setLoginText(String loginText) {
     _loginText = loginText;
+  }
+
+  void setSignUpText(String signUpText) {
+    _signUpText = signUpText;
   }
 
   void setRegistrationUrl(String url) {
