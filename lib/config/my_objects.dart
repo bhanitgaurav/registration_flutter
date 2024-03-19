@@ -69,7 +69,7 @@ class MyObject {
   }
 
   // void setEmailRegexMessage(String name, String regex, String message) {
-  //   _passwordRegexMessage = Triple(name, regex, message);
+  //   _emailRegexMessage = Triple(name, regex, message);
   // }
   //
   // Triple<String, String, String> get emailValidation {

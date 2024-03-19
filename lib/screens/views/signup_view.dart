@@ -4,8 +4,8 @@ import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:registration_flutter/config/my_objects.dart';
 import 'package:registration_flutter/data/models/user.dart';
+import 'package:registration_flutter/provider/api/api_provider.dart';
 import 'package:registration_flutter/provider/date_provider.dart';
-import 'package:registration_flutter/provider/pref/pref_provider.dart';
 import 'package:registration_flutter/provider/time_provider.dart';
 import 'package:registration_flutter/utils/app_alerts.dart';
 import 'package:registration_flutter/utils/constants.dart';
@@ -146,12 +146,26 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
       date: DateFormat.yMMMd().format(date),
     );
 
-    await ref.read(prefProvider.notifier).signUp(user).then((value) {
-      _showHideLoading(false);
-      if (!value) {
-        AppAlerts.displaySnackBar(context, Constants.errorInSignUp);
-        return;
-      }
+    // await ref.read(prefProvider.notifier).signUp(user).then((value) {
+    //   _showHideLoading(false);
+    //   if (!value) {
+    //     AppAlerts.displaySnackBar(context, Constants.errorInSignUp);
+    //     return;
+    //   }
+    //   clearTextFields();
+    //   AppAlerts.displaySnackBar(context, Constants.signUpSuccessfully);
+    //   context.navigator.pop();
+    // });
+
+    final result = await ref
+        .read(apiProvider.notifier)
+        .fetchJokesApiRequest(user)
+        .whenComplete(() => _showHideLoading(false));
+
+    result.fold(
+        (l) => AppAlerts.displaySnackBar(context, Constants.errorInSignUp),
+        (r) {
+      debugPrint('success : $r');
       clearTextFields();
       AppAlerts.displaySnackBar(context, Constants.signUpSuccessfully);
       context.navigator.pop();
