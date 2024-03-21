@@ -79,8 +79,13 @@ class SplashScreen extends ConsumerWidget {
       });
     } else {
       Future.delayed(const Duration(seconds: 2)).then((value) {
-        context.navigator.pushReplacement(
-            MyRoute.generateRoute(RouteLocation.login, dashboardScreen));
+        final String route;
+        if (MyObject.instance.signInUsingOtp) {
+          route = RouteLocation.signupOtp;
+        } else {
+          route = RouteLocation.login;
+        }
+        context.navigator.pushReplacement(MyRoute.generateRoute(route, dashboardScreen));
       });
     }
   }

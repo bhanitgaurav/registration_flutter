@@ -10,5 +10,7 @@ class Constants {
       'Username and Password cannot be empty.';
   static const String loggedInSuccessfully = 'LoggedIn successfully.';
   static const String errorInSignUp = 'Error in SignUp.';
+  static const String errorInGeneratingOtp = 'Error in generating Otp.';
+  static const String errorInValidatingOtp = 'Error in validating Otp.';
   static const String signUpSuccessfully = 'SignUp successfully.';
 }

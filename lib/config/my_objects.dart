@@ -15,8 +15,12 @@ class MyObject {
   late Triple<String, Triple<String, double?, double?>,
       Triple<String, double?, double?>> _splash;
   late String _appName;
+
+  bool _signInUsingOtp = false;
   String _loginText = 'Login';
   String _signUpText = 'SignUp';
+  String _generateOtp = 'Generate Otp';
+  String _verifyOtp = 'Verify Otp';
 
   late Pair<String, Triple<String, double?, double?>> _loginTopView;
   late Pair<String, Triple<String, double?, double?>> _signUpTopView;
@@ -24,6 +28,12 @@ class MyObject {
   Pair<String, String> _switchToSignUp = Pair('Not registered ? ', 'SignUp');
   Pair<String, String> _switchToLogin =
       Pair('Already have an account ? ', 'Login');
+
+  Triple<String, String, String> _mobileRegexMessage =
+      Triple('Mobile', r'^[6789][0-9]{9}$', 'Invalid mobile number.');
+
+  Triple<String, String, String> _otpRegexMessage =
+      Triple('OTP', r'^\d{6}$', 'Invalid otp.');
 
   Triple<String, String, String> _usernameRegexMessage = Triple('Username',
       r'^[A-Za-z0-9_.]+$', 'Username have only alphabet and digits.');
@@ -38,6 +48,10 @@ class MyObject {
 
   void notRegisterSignUp(String notRegisteredText, signupText) {
     _switchToSignUp = Pair(notRegisteredText, signupText);
+  }
+
+  void setSignInUsingOtp(bool signInUsingOtp) {
+    _signInUsingOtp = signInUsingOtp;
   }
 
   Pair<String, String> get switchToSignUp {
@@ -68,6 +82,25 @@ class MyObject {
     return _passwordRegexMessage;
   }
 
+  void setMobileRegexMessage(String name, String regex, String message) {
+    _mobileRegexMessage = Triple(name, regex, message);
+  }
+
+  Triple<String, String, String> get mobileValidation {
+    return _mobileRegexMessage;
+  }
+
+  void setOtpRegexMessage(String name, String regex, String message) {
+    _otpRegexMessage = Triple(name, regex, message);
+  }
+
+  Triple<String, String, String> get otpValidation {
+    return _otpRegexMessage;
+  }
+
+  bool get signInUsingOtp {
+    return _signInUsingOtp;
+  }
   // void setEmailRegexMessage(String name, String regex, String message) {
   //   _emailRegexMessage = Triple(name, regex, message);
   // }
@@ -78,6 +111,14 @@ class MyObject {
 
   get loginText {
     return _loginText;
+  }
+
+  get generateOtpText {
+    return _generateOtp;
+  }
+
+  get verifyOtpText {
+    return _verifyOtp;
   }
 
   get signUpText {

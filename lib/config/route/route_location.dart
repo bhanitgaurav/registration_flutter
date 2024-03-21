@@ -10,6 +10,10 @@ class RouteLocation {
 
   static String get login => '/login';
 
+  static String get signupOtp => '/signupOtp';
+
+  static String get inputOtp => '/inputOtp';
+
   static String get dashboard => '/dashboard';
 
   static String get home => '/home';
