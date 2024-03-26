@@ -17,11 +17,11 @@ class ApiNotifier extends StateNotifier<JokeModel> {
     return await _repository.fetchJokesApiRequest();
   }
 
-  EitherResponse<JokeModel> generateOtp(String mobileNumber) async {
-    return await _repository.fetchJokesApiRequest();
+  EitherResponse generateOtp(String mobileNumber) async {
+    return await _repository.generateOtp(mobileNumber);
   }
 
-  EitherResponse<JokeModel> verifyOtp(String otp) async {
-    return await _repository.fetchJokesApiRequest();
+  EitherResponse verifyOtp(String otp) async {
+    return await _repository.verifyOtp(otp);
   }
 }

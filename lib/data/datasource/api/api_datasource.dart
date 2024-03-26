@@ -19,4 +19,22 @@ class ApiDataSource {
       return left(e.toString());
     }
   }
+
+  EitherResponse<dynamic> generateOtp(String mobileNumber) async {
+    try {
+      final res = await _dioClient.get(Endpoints.baseUrl);
+      return right(res.data);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
+  EitherResponse<dynamic> verifyOtp(String otp) async {
+    try {
+      final res = await _dioClient.get(Endpoints.baseUrl);
+      return right(res.data);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
 }

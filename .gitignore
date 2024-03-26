@@ -31,3 +31,7 @@ build/
 /.flutter-plugins
 /.flutter-plugins-dependencies
 /lib/sample/ios/Podfile
+/lib/models/joke/flag_model.freezed.dart
+/lib/models/joke/flag_model.g.dart
+/lib/models/joke/joke_model.freezed.dart
+/lib/models/joke/joke_model.g.dart
