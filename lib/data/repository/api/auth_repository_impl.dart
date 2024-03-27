@@ -42,4 +42,14 @@ class ApiRepositoryImpl implements ApiRepository {
       return right(joke);
     });
   }
+
+  @override
+  EitherResponse login(String username, String password) async {
+    final result = await _apiSource.login(username, password);
+    return result.fold((l) => left(l), (r) {
+      var joke = JokeModel.fromJson(r);
+      debugPrint('fetchJokesApiRequest response $joke');
+      return right(joke);
+    });
+  }
 }

@@ -37,4 +37,13 @@ class ApiDataSource {
       return left(e.toString());
     }
   }
+
+  EitherResponse<dynamic> login(String username, String password) async {
+    try {
+      final res = await _dioClient.get(Endpoints.baseUrl);
+      return right(res.data);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
 }

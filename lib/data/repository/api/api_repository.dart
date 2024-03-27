@@ -7,4 +7,6 @@ abstract class ApiRepository {
   EitherResponse generateOtp(String mobileNumber);
 
   EitherResponse verifyOtp(String otp);
+
+  EitherResponse login(String username, String password);
 }
